@@ -1,0 +1,3 @@
+hosts
+mysql-tools/vars/*
+!mysql-tools/vars/template.yaml

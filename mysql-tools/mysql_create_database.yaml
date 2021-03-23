@@ -1,0 +1,18 @@
+---
+- hosts: mysql
+  gather_facts: no
+  vars_files:
+  - "{{ playbook_dir }}/vars/ehr_test.yaml"
+
+  tasks:
+  - name: mysql create database
+    mysql_db:
+      name: "{{ item.key }}"
+      encoding: "{{ item.value.encoding }}"
+#      login_unix_socket: "{{ mysql_login_info.socket }}"
+      login_host: "{{ mysql_login_info.host }}"
+      login_user: "{{ mysql_login_info.user }}"
+      login_password: "{{ mysql_login_info.password }}"
+      state: present
+    loop: "{{ mysql_create_database | dict2items }}"
+    # delegate_to: localhost
